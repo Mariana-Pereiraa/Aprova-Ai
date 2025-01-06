@@ -13,8 +13,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AprovaAiTheme {
-                val navController = rememberNavController()
-                NavGraph(navController = navController)
+                NavGraph(
+                    onSettingsClick = {
+
+                    },
+                    onHelpClick = {
+
+                    })
             }
         }
     }

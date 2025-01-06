@@ -25,7 +25,7 @@ fun ConteudosScreen(conteudos: EstudosConteudos) {
     val opcoesDificuldade = Dificuldade.values().map { it.name }
     var checkEstudo by remember { mutableStateOf(conteudos.checkEstudo) }
     var resolucao by remember { mutableStateOf(conteudos.resolucao) }
-    var revisar by remember { mutableStateOf(conteudos.revisar) }
+    var revisar by remember { mutableStateOf(conteudos.isRevisar) }
     var anotacoes by remember { mutableStateOf(conteudos.anotacoes) }
 
     Column(
@@ -181,12 +181,13 @@ fun CheckboxComLabel(label: String, checked: Boolean, onCheckedChange: (Boolean)
 fun ConteudosScreenPreview() {
     ConteudosScreen(
         conteudos = EstudosConteudos(
+            id = 1,
+            name = "",
             dataEstudo = Date(),
             dificuldade = Dificuldade.MÉDIO,
             checkEstudo = false,
             resolucao = true,
-            revisar = false,
-            anotacoes = "Revisar gramática"
+            anotacoes = ""
         )
     )
 }
