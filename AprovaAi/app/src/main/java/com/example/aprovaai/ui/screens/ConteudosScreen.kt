@@ -3,6 +3,9 @@ package com.example.aprovaai.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckBox
+import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,12 +16,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.models.Dificuldade
+import com.example.aprovaai.models.Disciplina
+import com.example.aprovaai.ui.theme.BlueBase
+import com.example.aprovaai.ui.theme.GrayDark
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConteudosScreen(conteudos: EstudosConteudos) {
+fun ConteudosScreen(conteudos: EstudosConteudos,
+                    onRevisarToggle: (Disciplina) -> Unit,
+                    disciplina: Disciplina){
     // Estados para gerenciar as interações
     var dataEstudo by remember { mutableStateOf("") }
     var dificuldadeSelecionada by remember { mutableStateOf(conteudos.dificuldade.name) }
@@ -97,11 +105,19 @@ fun ConteudosScreen(conteudos: EstudosConteudos) {
             checked = resolucao,
             onCheckedChange = { resolucao = it }
         )
-        CheckboxComLabel(
-            label = "Preciso revisar?",
-            checked = revisar,
-            onCheckedChange = { revisar = it }
-        )
+
+
+        IconButton(
+            onClick = { onRevisarToggle(disciplina) }
+        ) {
+            Icon(
+               imageVector = if(disciplina.conteudos.isRevisar) Icons.Default.CheckBox
+                                else Icons.Default.CheckBoxOutlineBlank,
+                contentDescription = "Toggle Revisar",
+               tint = if(disciplina.conteudos.isRevisar) BlueBase
+                      else GrayDark
+            )
+        }
 
         // Anotações
         Text(
@@ -176,18 +192,29 @@ fun CheckboxComLabel(label: String, checked: Boolean, onCheckedChange: (Boolean)
 }
 
 // Preview para a tela de Conteúdos
-@Preview(showBackground = true)
-@Composable
-fun ConteudosScreenPreview() {
-    ConteudosScreen(
-        conteudos = EstudosConteudos(
-            id = 1,
-            name = "",
-            dataEstudo = Date(),
-            dificuldade = Dificuldade.MÉDIO,
-            checkEstudo = false,
-            resolucao = true,
-            anotacoes = ""
-        )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ConteudosScreenPreview() {
+//    ConteudosScreen(
+//        conteudos = EstudosConteudos(
+//            dataEstudo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()),
+//            dificuldade = Dificuldade.FACIL,
+//            checkEstudo = true,
+//            resolucao = false,
+//            isRevisar = false,
+//            anotacoes = "Anotações sobre o conteúdo"
+//        ),
+//        onRevisarToggle = {},
+//        disciplina = Disciplina(
+//            nome = "Português",
+//            conteudos = EstudosConteudos(
+//                dataEstudo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()),
+//                dificuldade = Dificuldade.FACIL,
+//                checkEstudo = true,
+//                resolucao = false,
+//                isRevisar = false,
+//                anotacoes = "Anotações sobre o conteúdo"
+//            )
+//        )
+//    )
+//}

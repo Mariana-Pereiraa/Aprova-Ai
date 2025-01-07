@@ -38,7 +38,7 @@ fun BottomNavigationBar(navController: NavController) {
                 label = { Text(screen.label) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = BlueBase,
-                    unselectedIconColor = BlueDark
+                    unselectedIconColor = colorScheme.onSurfaceVariant
                 )
             )
         }
