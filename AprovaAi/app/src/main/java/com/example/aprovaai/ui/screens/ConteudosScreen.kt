@@ -106,18 +106,11 @@ fun ConteudosScreen(conteudos: EstudosConteudos,
             onCheckedChange = { resolucao = it }
         )
 
-
-        IconButton(
-            onClick = { onRevisarToggle(disciplina) }
-        ) {
-            Icon(
-               imageVector = if(disciplina.conteudos.isRevisar) Icons.Default.CheckBox
-                                else Icons.Default.CheckBoxOutlineBlank,
-                contentDescription = "Toggle Revisar",
-               tint = if(disciplina.conteudos.isRevisar) BlueBase
-                      else GrayDark
-            )
-        }
+        CheckboxComLabel(
+            label = "Preciso revisar?",
+            checked = revisar,
+            onCheckedChange = { revisar = it }
+        )
 
         // Anotações
         Text(

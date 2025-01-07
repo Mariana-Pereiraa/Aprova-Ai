@@ -7,6 +7,7 @@ data class Disciplina(
     val name: String,
     val imageDisc: Int,
     val conteudos: List<EstudosConteudos>,
+    var isFavorite: Boolean = false
 )
 
     val disciplinasList = listOf(
@@ -21,6 +22,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
+                isRevisar = false,
                 anotacoes = "Estudar Literatura"
             ),
             EstudosConteudos(
@@ -2330,7 +2332,7 @@ data class Disciplina(
 
             Disciplina(
                 id = 13,
-                name = "Educação Física",
+                name = "Ed. Física",
                 imageDisc = R.drawable.portugues,
                 conteudos = listOf(EstudosConteudos(
                     id = 246,

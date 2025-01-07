@@ -21,11 +21,12 @@ import com.example.aprovaai.ui.components.BottomNavigationBar
 import com.example.aprovaai.ui.screens.HomeScreen
 import androidx.navigation.compose.composable
 import com.example.aprovaai.models.EstudosConteudos
-import com.example.aprovaai.ui.screens.RevisarScreen
 import com.example.aprovaai.R
 import com.example.aprovaai.ui.screens.ConteudosScreen
 import com.example.aprovaai.ui.screens.DisciplinasScreen
+import com.example.aprovaai.ui.screens.FavoritosScreen
 import com.example.aprovaai.ui.screens.MusicasScreen
+
 
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
@@ -36,9 +37,9 @@ sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit
     )
 
     object Revisar : BottomBarScreen(
-        route = "revisar",
-        icon = { androidx.compose.material3.Icon(Icons.Default.Reviews, contentDescription = "Favorites") },
-        label = "Revisar"
+        route = "favoritos",
+        icon = { androidx.compose.material3.Icon(Icons.Default.Favorite, contentDescription = "Favorites") },
+        label = "Favoritos"
     )
 
     object Musicas : BottomBarScreen(
@@ -78,25 +79,24 @@ fun NavGraph(
                 )
             }
             composable(BottomBarScreen.Revisar.route) {
-                RevisarScreen(
+                FavoritosScreen(
                     onDisciplinaSelected = { disciplina ->
                         navController.navigate("details/${disciplina.name}")
                     },
-                    onRevisarToggle = { disciplina ->
-                        disciplina.conteudos.isRevisar = !disciplina.conteudos.isRevisar
-
+                    onFavoriteToggle = { disciplina ->
+                            disciplina.isFavorite = !disciplina.isFavorite
                     }
                 )
             }
 
 //            MÚSICA
-            composable(BottomBarScreen.Musicas.route) {
-                MusicasScreen(
-                    disciplinas = Disciplinas.values().toList(),
-                    onSettingsClick = onSettingsClick,
-                    onHelpClick = onHelpClick
-                )
-            }
+//            composable(BottomBarScreen.Musicas.route) {
+//                MusicasScreen(
+//                    disciplinas = Disciplinas.values().toList(),
+//                    onSettingsClick = onSettingsClick,
+//                    onHelpClick = onHelpClick
+//                )
+//            }
 
 //            composable("disciplinas") {
 //                val disciplinas = listOf(
