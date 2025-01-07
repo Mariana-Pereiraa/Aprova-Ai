@@ -28,16 +28,17 @@ import androidx.compose.ui.unit.dp
 import com.example.aprovaai.models.Disciplina
 import androidx.compose.material3.*
 import androidx.compose.ui.unit.sp
+import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.ui.theme.BlueBase
 import com.example.aprovaai.ui.theme.GrayDark
 import com.example.aprovaai.ui.theme.GrayLight
 
 
 @Composable
-fun DisciplinaListItem(
-    disciplina: Disciplina,
-    onDisciplinaSelected: (Disciplina) -> Unit,
-    onRevisarToggle: (Disciplina) -> Unit
+fun ConteudoListItem(
+    conteudo: EstudosConteudos,
+    onConteudoSelected: (EstudosConteudos) -> Unit,
+    onRevisarToggle: (EstudosConteudos) -> Unit
 ) {
     Card (
         modifier = Modifier
@@ -58,15 +59,6 @@ fun DisciplinaListItem(
                     .fillMaxSize()
                     .padding(12.dp)
             ) {
-                Image(
-                    painter = painterResource(id = disciplina.imageDisc),
-                    contentDescription = "${disciplina.name} Image",
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(CircleShape)
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
 
 //                Text(
 //                    text = disciplina.name,
@@ -89,12 +81,12 @@ fun DisciplinaListItem(
 
 
                 Button(
-                    onClick = { onDisciplinaSelected(disciplina) },
+                    onClick = { onConteudoSelected(conteudo) },
                     modifier = Modifier.height(40.dp),
                     contentPadding = PaddingValues(horizontal = 18.dp, vertical = 2.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = BlueBase)
                 ) {
-                    Text(text = "${disciplina.name}",
+                    Text(text = "${conteudo.name}",
                         fontSize = 17.sp)
 
                 }

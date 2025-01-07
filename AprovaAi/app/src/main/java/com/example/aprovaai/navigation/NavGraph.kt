@@ -20,7 +20,12 @@ import com.example.aprovaai.ui.components.BottomNavigationBar
 //import com.example.aprovaai.ui.screens.FavoritesScreen
 import com.example.aprovaai.ui.screens.HomeScreen
 import androidx.navigation.compose.composable
+import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.ui.screens.RevisarScreen
+import com.example.aprovaai.R
+import com.example.aprovaai.ui.screens.ConteudosScreen
+import com.example.aprovaai.ui.screens.DisciplinasScreen
+import com.example.aprovaai.ui.screens.MusicasScreen
 
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
@@ -83,12 +88,71 @@ fun NavGraph(
                     }
                 )
             }
+
 //            MÚSICA
-//            composable(BottomBarScreen.Musicas.route) {
+            composable(BottomBarScreen.Musicas.route) {
+                MusicasScreen(
+                    disciplinas = Disciplinas.values().toList(),
+                    onSettingsClick = onSettingsClick,
+                    onHelpClick = onHelpClick
+                )
+            }
+
+//            composable("disciplinas") {
+//                val disciplinas = listOf(
+//                    Disciplina(
+//                        name = "Português",
+//                        imageDisc = R.drawable.portugues,
+//                        conteudos = listOf(
+//                            EstudosConteudos(name = "Gramática"),
+//                            EstudosConteudos(name = "Interpretação de Texto")
+//                        )
+//                    ),
+//                    Disciplina(
+//                        name = "Matemática",
+//                        imageDisc = R.drawable.matematica,
+//                        conteudos = listOf(
+//                            EstudosConteudos(name = "Álgebra"),
+//                            EstudosConteudos(name = "Geometria")
+//                        )
+//                    )
+//                )
+//
+//                DisciplinasScreen(
+//                    disciplinas = disciplinas,
+//                    onDisciplinaSelected = { disciplina ->
+//                        navController.navigate("conteudos/${disciplina.name}")
+//                    }
+//                )
+//            }
+//
+//            // Tela de Conteúdos
+//            composable(
+//                route = "conteudos/{disciplinaName}",
+//                arguments = listOf(navArgument("disciplinaName") { type = NavType.StringType })
+//            ) { backStackEntry ->
+//                val disciplinaName = backStackEntry.arguments?.getString("disciplinaName") ?: ""
+//                val disciplina = disciplinas.find { it.name == disciplinaName }
+//                disciplina?.let {
+//                    ConteudosListScreen(
+//                        conteudos = it.conteudos,
+//                        onConteudoSelected = { conteudo ->
+//                            navController.navigate("conteudoScreen/${conteudo.name}")
+//                        }
+//                    )
+//                }
+//            }
+//
+//            // Tela de Detalhes do Conteúdo
+//            composable(
+//                route = "conteudoScreen/{conteudoName}",
+//                arguments = listOf(navArgument("conteudoName") { type = NavType.StringType })
+//            ) { backStackEntry ->
+//                val conteudoName = backStackEntry.arguments?.getString("conteudoName") ?: ""
 //                ConteudosScreen(
-//                    disciplinas = Disciplinas.values().toList(),
-//                    onSettingsClick = onSettingsClick,
-//                    onHelpClick = onHelpClick
+//                    conteudos = EstudosConteudos(name = conteudoName),
+//                    disciplina = Disciplina(name = ""),
+//                    onRevisarToggle = {}
 //                )
 //            }
         }
