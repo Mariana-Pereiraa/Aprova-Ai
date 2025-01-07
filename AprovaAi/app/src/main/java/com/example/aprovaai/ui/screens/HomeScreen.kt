@@ -118,8 +118,8 @@ fun HomeScreen(
                             }
                             onDisciplinaSelected(selectedDisciplina)
                         },
-                        onRevisarToggle = { revisarDisciplina ->
-                            revisarDisciplina.conteudos.isRevisar = !revisarDisciplina.conteudos.isRevisar
+                        onFavoriteToggle = { favoriteDisciplina ->
+                            favoriteDisciplina.isFavorite = !favoriteDisciplina.isFavorite
                         }
                     )
                 }

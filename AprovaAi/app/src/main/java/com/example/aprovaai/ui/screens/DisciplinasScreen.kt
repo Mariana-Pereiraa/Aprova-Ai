@@ -38,7 +38,7 @@ fun DisciplinasScreen(
                 DisciplinaListItem(
                     disciplina = disciplina,
                     onDisciplinaSelected = { onDisciplinaSelected(disciplina) },
-                    onRevisarToggle = { /* Adicionar funcionalidade de revisão se necessário */ }
+                    onFavoriteToggle = { /* Adicionar funcionalidade de revisão se necessário */ }
                 )
             }
         }
