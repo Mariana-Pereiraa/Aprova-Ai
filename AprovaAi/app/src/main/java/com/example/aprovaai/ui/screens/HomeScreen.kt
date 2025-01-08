@@ -53,14 +53,13 @@ fun HomeScreen(
         disciplinasList.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
 
-    val recentsSearches = viewModel.recentsSearches
+    val recentsSearches = remember { mutableStateListOf<Disciplina>() }
 
     Scaffold (
         topBar = {
             TopAppBarWithMenu(
                 onSettingsClick = onSettingsClick,
-                onHelpClick = onHelpClick,
-                onLogout = { }
+                onHelpClick = onHelpClick
             )
         }
     ){innerPadding ->

@@ -118,6 +118,11 @@ fun NavGraph(
                     )
                 }
             }
+
+            composable(BottomBarScreen.Musicas.route) {
+                MusicasScreen(context = LocalContext.current)
+            }
+
         }
     }
 }
