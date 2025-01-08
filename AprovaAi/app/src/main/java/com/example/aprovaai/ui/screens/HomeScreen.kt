@@ -45,20 +45,22 @@ import com.example.aprovaai.ui.theme.GrayLight
 fun HomeScreen(
     onDisciplinaSelected: (Disciplina) -> Unit,
     onSettingsClick: () -> Unit,
-    onHelpClick: () -> Unit
+    onHelpClick: () -> Unit,
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val filtroDisciplinas = remember(searchQuery){
         disciplinasList.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
 
-    val recentsSearches = remember { mutableStateListOf<Disciplina>() }
+    val recentsSearches = viewModel.recentsSearches
 
     Scaffold (
         topBar = {
             TopAppBarWithMenu(
                 onSettingsClick = onSettingsClick,
-                onHelpClick = onHelpClick
+                onHelpClick = onHelpClick,
+                onLogout = { }
             )
         }
     ){innerPadding ->

@@ -38,34 +38,10 @@ fun DisciplinasScreen(
                 DisciplinaListItem(
                     disciplina = disciplina,
                     onDisciplinaSelected = { onDisciplinaSelected(disciplina) },
-                    onFavoriteToggle = { /* Adicionar funcionalidade de revisão se necessário */ }
+                    onFavoriteToggle = { }
                 )
             }
         }
     }
 }
 
-//@Preview
-//@Composable
-//private fun DisciplinasScreenPrev() {
-//    DisciplinasScreen(
-//        disciplinas = listOf(
-//            Disciplina(
-//                name = "Matemática",
-//                conteudos = listOf(
-//                    ("Álgebra"),
-//                    Disciplina.Conteudo("Geometria"),
-//                    Disciplina.Conteudo("Cálculo")
-//                )
-//            ),
-//            Disciplina(
-//                name = "Português",
-//                conteudos = listOf(
-//                    Disciplina.Conteudo("Gramática"),
-//                    Disciplina.Conteudo("Literatura")
-//                )
-//            )
-//        ),
-//        onDisciplinaSelected = { }
-//    ) { }
-//}
