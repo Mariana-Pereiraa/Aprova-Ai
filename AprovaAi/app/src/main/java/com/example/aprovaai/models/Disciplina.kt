@@ -479,7 +479,7 @@ data class Disciplina(
         Disciplina(
             id = 3,
             name = "Química",
-            imageDisc = R.drawable.portugues,
+            imageDisc = R.drawable.quimica,
             conteudos = listOf(EstudosConteudos(
             id = 51,
             name = "Neutralidade",
@@ -728,7 +728,7 @@ data class Disciplina(
         Disciplina(
             id = 4,
             name = "Física",
-            imageDisc = R.drawable.portugues,
+            imageDisc = R.drawable.fisica,
             conteudos = listOf(EstudosConteudos(
                 id = 78,
                 name = "Análise dimensional",
@@ -870,7 +870,7 @@ data class Disciplina(
             Disciplina(
                 id = 5,
                 name = "Biologia",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.biologia,
                 conteudos = listOf(EstudosConteudos(
                     id = 93,
                     name = "Ciclos biogeoquímicos",
@@ -1146,7 +1146,7 @@ data class Disciplina(
             Disciplina(
                 id = 6,
                 name = "Geografia",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.geografia,
                 conteudos = listOf(EstudosConteudos(
                     id = 121,
                     name = "Agricultura Brasileira",
@@ -1386,7 +1386,7 @@ data class Disciplina(
             Disciplina(
                 id = 7,
                 name = "História",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.historia,
                 conteudos = listOf(EstudosConteudos(
                     id = 147,
                     name = "História do Brasil",
@@ -1590,7 +1590,7 @@ data class Disciplina(
             Disciplina(
                 id = 8,
                 name = "Sociologia",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.sociologia,
                 conteudos = listOf(EstudosConteudos(
                     id = 168,
                     name = "Globalização",
@@ -1866,7 +1866,7 @@ data class Disciplina(
             Disciplina(
             id = 9,
             name = "Filosofia",
-            imageDisc = R.drawable.portugues,
+            imageDisc = R.drawable.filosofia,
             conteudos = listOf(EstudosConteudos(
                 id = 197,
                 name = "Pré-Socráticos",
@@ -2151,7 +2151,7 @@ data class Disciplina(
             Disciplina(
                 id = 10,
                 name = "Artes",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.artes,
                 conteudos = listOf(EstudosConteudos(
                     id = 228,
                     name = "Arte Contemporânea",
@@ -2247,7 +2247,7 @@ data class Disciplina(
             Disciplina(
                 id = 11,
                 name = "Inglês",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.ingles,
                 conteudos = listOf(EstudosConteudos(
                     id = 238,
                     name = "Interpretação de Texto",
@@ -2289,7 +2289,7 @@ data class Disciplina(
             Disciplina(
                 id = 12,
                 name = "Espanhol",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.espanhol,
                 conteudos = listOf(
                     EstudosConteudos(
                         id = 242,
@@ -2333,7 +2333,7 @@ data class Disciplina(
             Disciplina(
                 id = 13,
                 name = "Ed. Física",
-                imageDisc = R.drawable.portugues,
+                imageDisc = R.drawable.educacaofisica,
                 conteudos = listOf(EstudosConteudos(
                     id = 246,
                     name = "Práticas corporais e autonomia",
