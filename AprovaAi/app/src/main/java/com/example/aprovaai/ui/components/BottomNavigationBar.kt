@@ -17,7 +17,7 @@ import com.example.aprovaai.ui.theme.BlueLight
 fun BottomNavigationBar(navController: NavController) {
     val screens = listOf(
         BottomBarScreen.Home,
-        BottomBarScreen.Revisar,
+        BottomBarScreen.Favoritos,
         BottomBarScreen.Musicas
     )
 
@@ -38,7 +38,7 @@ fun BottomNavigationBar(navController: NavController) {
                 label = { Text(screen.label) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = BlueBase,
-                    unselectedIconColor = BlueDark
+                    unselectedIconColor = colorScheme.onSurfaceVariant
                 )
             )
         }

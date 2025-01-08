@@ -68,14 +68,7 @@ fun TopAppBarWithMenu(
                         }
                     )
                     DropdownMenuItem(
-                        text = { Text("Tela Inicial") },
-                        onClick = {
-                            expanded = false
-                            onHelpClick()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Favoritos") },
+                        text = { Text("Sair") },
                         onClick = {
                             expanded = false
                             onHelpClick()

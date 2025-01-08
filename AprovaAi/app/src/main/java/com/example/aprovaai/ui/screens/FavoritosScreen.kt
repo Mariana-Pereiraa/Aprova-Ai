@@ -20,30 +20,28 @@ import androidx.compose.ui.unit.dp
 import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.DisciplinaListItem
-import java.nio.file.WatchEvent
 
 @ExperimentalMaterial3Api
 @Composable
-fun RevisarScreen(
+fun FavoritosScreen(
     onDisciplinaSelected: (Disciplina) -> Unit,
-    onRevisarToggle: (Disciplina) -> Unit
+    onFavoriteToggle: (Disciplina) -> Unit
 ) {
     Scaffold (
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Revisar",
+                        text = "Favoritos",
                         style = MaterialTheme.typography.titleLarge
                     )
                 }
             )
         }
     ){  innerPadding ->
-        val revisarDisciplinas = disciplinasList.filter { it.conteudos.isRevisar }
+        val favoriteDisciplinas = disciplinasList.filter { it.isFavorite}
 
-        if(revisarDisciplinas.isEmpty()) {
-            // Exibe o texto padrão quando não há disciplinas para revisar
+        if(favoriteDisciplinas.isEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -51,25 +49,24 @@ fun RevisarScreen(
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = "Você não tem disciplinas para revisar.",
+                    text = "Você não tem disciplinas favoritas.",
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         } else {
-            // Exibe a lista de disciplinas para revisar
             LazyColumn (
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .padding(innerPadding)
                     .padding(horizontal = 8.dp)
             ){
-                items(revisarDisciplinas) { disciplina ->
+                items(favoriteDisciplinas) { disciplina ->
                     DisciplinaListItem(
                         disciplina = disciplina,
                         onDisciplinaSelected = {onDisciplinaSelected(it)},
-                        onRevisarToggle = {onRevisarToggle(it)}
+                        onFavoriteToggle = {onFavoriteToggle(it)}
                     )
                 }
             }
@@ -81,8 +78,8 @@ fun RevisarScreen(
 @Preview
 @Composable
 private fun RevisarScreenPrev() {
-    RevisarScreen(
+    FavoritosScreen(
         onDisciplinaSelected = {},
-        onRevisarToggle = {}
+        onFavoriteToggle = {}
     )
 }

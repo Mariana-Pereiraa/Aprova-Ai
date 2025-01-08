@@ -8,13 +8,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -32,13 +36,17 @@ import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.DisciplinaListItem
 import com.example.aprovaai.ui.components.TopAppBarWithMenu
+import com.example.aprovaai.ui.theme.BlueBase
+import com.example.aprovaai.ui.theme.GrayDark
+import com.example.aprovaai.ui.theme.GrayLight
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onDisciplinaSelected: (Disciplina) -> Unit,
     onSettingsClick: () -> Unit,
-    onHelpClick: () -> Unit
+    onHelpClick: () -> Unit,
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val filtroDisciplinas = remember(searchQuery){
@@ -63,6 +71,18 @@ fun HomeScreen(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 label = { Text("Pesquisar") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Pesquisar"
+                    )
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = GrayLight,
+                    disabledIndicatorColor = BlueBase,
+                    focusedIndicatorColor = BlueBase,
+                    focusedLabelColor = GrayDark
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -99,8 +119,8 @@ fun HomeScreen(
                             }
                             onDisciplinaSelected(selectedDisciplina)
                         },
-                        onRevisarToggle = { revisarDisciplina ->
-                            revisarDisciplina.conteudos.isRevisar = !revisarDisciplina.conteudos.isRevisar
+                        onFavoriteToggle = { favoriteDisciplina ->
+                            favoriteDisciplina.isFavorite = !favoriteDisciplina.isFavorite
                         }
                     )
                 }

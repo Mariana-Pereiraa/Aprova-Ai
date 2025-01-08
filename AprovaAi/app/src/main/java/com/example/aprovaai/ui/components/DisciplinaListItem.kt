@@ -1,6 +1,7 @@
 package com.example.aprovaai.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +40,7 @@ import com.example.aprovaai.ui.theme.GrayLight
 fun DisciplinaListItem(
     disciplina: Disciplina,
     onDisciplinaSelected: (Disciplina) -> Unit,
-    onRevisarToggle: (Disciplina) -> Unit
+    onFavoriteToggle: (Disciplina) -> Unit
 ) {
     Card (
         modifier = Modifier
@@ -67,61 +70,47 @@ fun DisciplinaListItem(
                 )
 
                 Spacer(modifier = Modifier.width(16.dp))
+                
 
-                Text(
-                    text = disciplina.name,
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-                    modifier = Modifier.weight(1f)
-                )
-//                COLOCAR DENTRO DE CONTEÚDO
-//                IconButton(
-//                    onClick = { onRevisarToggle(disciplina) }
-//                ) {
-//                    Icon(
-//                       imageVector = if(disciplina.conteudos.isRevisar) Icons.Default.CheckBox
-//                                        else Icons.Default.CheckBoxOutlineBlank,
-//                        contentDescription = "Toggle Revisar",
-//                       tint = if(disciplina.conteudos.isRevisar) BlueBase
-//                              else GrayDark
-//                    )
-//                }
-//            }
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ){
+                    Button(
+                        onClick = { onDisciplinaSelected(disciplina) },
+                        modifier = Modifier.height(40.dp)
+                            .weight(1f),
+                        contentPadding = PaddingValues(horizontal = 18.dp, vertical = 2.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = BlueBase)
+                    ) {
+                        Text(text = "${disciplina.name}",
+                            fontSize = 17.sp)
 
+                    }
 
-                Button(
-                    onClick = { onDisciplinaSelected(disciplina) },
-                    modifier = Modifier.height(40.dp),
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = BlueBase)
-                ) {
-                    Text(text = "Abrir",
-                        fontSize = 14.sp)
+                    Spacer(modifier = Modifier.width(8.dp))
 
+                    IconButton(
+                        onClick = { onFavoriteToggle(disciplina) },
+                        modifier = Modifier.size(48.dp)
+                    ) {
+                        Icon(
+                            imageVector = if(disciplina.isFavorite) Icons.Default.Favorite
+                            else Icons.Default.FavoriteBorder,
+                            contentDescription = "Toggle Favoritos",
+                            tint = if(disciplina.isFavorite) BlueBase
+                            else GrayDark,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
+
+
+            }
 
 
             }
         }
     }
-}
-
-//@Preview
-//@Composable
-//private fun DisciplinaListItemPrev() {
-//    DisciplinaListItem(
-//        disciplina = Disciplina(
-//            name = "Matemática",
-//            imageDisc = R.drawable.ic_menu_add,
-//            conteudos = EstudosConteudos(
-//                id = 1,
-//                name = "Álgebra",
-//                dataEstudo = "2023-10-01",
-//                dificuldade = 3
-//            )
-//        ),
-//        onDisciplinaSelected = {},
-//        onRevisarToggle = {}
-//    ) {
-//        // Preview
-//    }
-//}
