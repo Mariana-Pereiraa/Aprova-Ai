@@ -10,7 +10,6 @@
 <br>
 <br>
 
-***
 
 <h4 align="center">Universidade Federal do Ceará</h4>
 
