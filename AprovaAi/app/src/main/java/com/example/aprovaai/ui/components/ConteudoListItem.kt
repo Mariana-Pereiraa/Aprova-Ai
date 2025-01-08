@@ -1,6 +1,7 @@
 package com.example.aprovaai.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -30,17 +31,15 @@ import androidx.compose.material3.*
 import androidx.compose.ui.unit.sp
 import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.ui.theme.BlueBase
-import com.example.aprovaai.ui.theme.GrayDark
 import com.example.aprovaai.ui.theme.GrayLight
 
 
 @Composable
 fun ConteudoListItem(
     conteudo: EstudosConteudos,
-    onConteudoSelected: (EstudosConteudos) -> Unit,
-    onRevisarToggle: (EstudosConteudos) -> Unit
+    onConteudoSelected: (EstudosConteudos) -> Unit
 ) {
-    Card (
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
@@ -51,69 +50,20 @@ fun ConteudoListItem(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center, // Centraliza o conteúdo verticalmente
+            horizontalAlignment = Alignment.CenterHorizontally // Centraliza o conteúdo horizontalmente
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Button(
+                onClick = { onConteudoSelected(conteudo) },
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp)
+                    .height(40.dp)
+                    .fillMaxWidth(0.8f), // Ajuste a largura do botão para não ocupar toda a largura
+                contentPadding = PaddingValues(horizontal = 18.dp, vertical = 2.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = BlueBase)
             ) {
-
-//                Text(
-//                    text = disciplina.name,
-//                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-//                    modifier = Modifier.weight(1f)
-//                )
-//                COLOCAR DENTRO DE CONTEÚDO
-//                IconButton(
-//                    onClick = { onRevisarToggle(disciplina) }
-//                ) {
-//                    Icon(
-//                       imageVector = if(disciplina.conteudos.isRevisar) Icons.Default.CheckBox
-//                                        else Icons.Default.CheckBoxOutlineBlank,
-//                        contentDescription = "Toggle Revisar",
-//                       tint = if(disciplina.conteudos.isRevisar) BlueBase
-//                              else GrayDark
-//                    )
-//                }
-//            }
-
-
-                Button(
-                    onClick = { onConteudoSelected(conteudo) },
-                    modifier = Modifier.height(40.dp),
-                    contentPadding = PaddingValues(horizontal = 18.dp, vertical = 2.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = BlueBase)
-                ) {
-                    Text(text = "${conteudo.name}",
-                        fontSize = 17.sp)
-
-                }
-
-
+                Text(text = "${conteudo.name}", fontSize = 17.sp)
             }
         }
     }
 }
-
-//@Preview
-//@Composable
-//private fun DisciplinaListItemPrev() {
-//    DisciplinaListItem(
-//        disciplina = Disciplina(
-//            name = "Matemática",
-//            imageDisc = R.drawable.ic_menu_add,
-//            conteudos = EstudosConteudos(
-//                id = 1,
-//                name = "Álgebra",
-//                dataEstudo = "2023-10-01",
-//                dificuldade = 3
-//            )
-//        ),
-//        onDisciplinaSelected = {},
-//        onRevisarToggle = {}
-//    ) {
-//        // Preview
-//    }
-//}

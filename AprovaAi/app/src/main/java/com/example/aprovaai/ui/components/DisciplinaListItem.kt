@@ -78,22 +78,6 @@ fun DisciplinaListItem(
                     modifier = Modifier
                         .fillMaxWidth()
                 ){
-                    IconButton(
-                        onClick = { onFavoriteToggle(disciplina) },
-                        modifier = Modifier.size(48.dp)
-                    ) {
-                        Icon(
-                            imageVector = if(disciplina.isFavorite) Icons.Default.Favorite
-                            else Icons.Default.FavoriteBorder,
-                            contentDescription = "Toggle Favoritos",
-                            tint = if(disciplina.isFavorite) BlueBase
-                            else GrayDark,
-                                    modifier = Modifier.size(32.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
                     Button(
                         onClick = { onDisciplinaSelected(disciplina) },
                         modifier = Modifier.height(40.dp)
@@ -106,36 +90,27 @@ fun DisciplinaListItem(
 
                     }
 
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    IconButton(
+                        onClick = { onFavoriteToggle(disciplina) },
+                        modifier = Modifier.size(48.dp)
+                    ) {
+                        Icon(
+                            imageVector = if(disciplina.isFavorite) Icons.Default.Favorite
+                            else Icons.Default.FavoriteBorder,
+                            contentDescription = "Toggle Favoritos",
+                            tint = if(disciplina.isFavorite) BlueBase
+                            else GrayDark,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
 
 
             }
 
 
-
-
-
             }
         }
     }
-
-//@Preview
-//@Composable
-//private fun DisciplinaListItemPrev() {
-//    DisciplinaListItem(
-//        disciplina = Disciplina(
-//            name = "Matemática",
-//            imageDisc = R.drawable.ic_menu_add,
-//            conteudos = EstudosConteudos(
-//                id = 1,
-//                name = "Álgebra",
-//                dataEstudo = "2023-10-01",
-//                dificuldade = 3
-//            )
-//        ),
-//        onDisciplinaSelected = {},
-//        onRevisarToggle = {}
-//    ) {
-//        // Preview
-//    }
-//}

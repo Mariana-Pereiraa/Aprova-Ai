@@ -33,7 +33,8 @@ import com.example.aprovaai.ui.theme.BlueBase
 @Composable
 fun TopAppBarWithMenu(
     onSettingsClick: () -> Unit,
-    onHelpClick: () -> Unit
+    onHelpClick: () -> Unit,
+    onLogout: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -68,17 +69,10 @@ fun TopAppBarWithMenu(
                         }
                     )
                     DropdownMenuItem(
-                        text = { Text("Tela Inicial") },
+                        text = { Text("Sair") },
                         onClick = {
                             expanded = false
-                            onHelpClick()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Favoritos") },
-                        onClick = {
-                            expanded = false
-                            onHelpClick()
+                            onLogout()
                         }
                     )
                 }
@@ -105,13 +99,3 @@ fun TopAppBarWithMenu(
     )
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-private fun TopAppBarWithMenuPreview() {
-    TopAppBarWithMenu(
-        onSettingsClick = {  },
-        onHelpClick = {  }
-    )
-}
