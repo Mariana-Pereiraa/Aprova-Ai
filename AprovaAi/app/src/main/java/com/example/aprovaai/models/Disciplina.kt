@@ -10,7 +10,7 @@ data class Disciplina(
     var isFavorite: Boolean = false
 )
 
-val disciplinasList = listOf(
+    val disciplinasList = listOf(
     Disciplina(
         id = 1 ,
         name = "Português",
