@@ -13,14 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.ui.components.ConteudoListItem
-import com.example.aprovaai.ui.components.DisciplinaListItem
 
-
+//tela de conteúdos
 @Composable
 fun ConteudosScreen(
     conteudos: List<EstudosConteudos>,
@@ -43,7 +40,6 @@ fun ConteudosScreen(
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
-
 
         LazyColumn {
             items(conteudos) { conteudo ->

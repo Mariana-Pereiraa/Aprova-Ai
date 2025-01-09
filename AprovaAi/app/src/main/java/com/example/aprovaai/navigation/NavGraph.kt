@@ -8,6 +8,8 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.BottomNavigationBar
+import com.example.aprovaai.ui.components.TopAppBarWithMenu
 import com.example.aprovaai.ui.screens.*
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
@@ -47,8 +50,20 @@ fun NavGraph(
     onHelpClick: () -> Unit
 ) {
     val navController = rememberNavController()
+    val isDarkModeEnabled = remember { mutableStateOf(false) }
 
     Scaffold(
+        topBar = {
+            TopAppBarWithMenu(
+                onSettingsClick = {
+                    navController.navigate("settings")
+                },
+                onHelpClick = {
+                    navController.navigate("help")
+                },
+                onLogoutClick = {}
+            )
+        },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
@@ -64,7 +79,9 @@ fun NavGraph(
                     onDisciplinaSelected = { disciplina ->
                         navController.navigate("conteudos/${disciplina.name}")
                     },
-                    onSettingsClick = onSettingsClick,
+                    onSettingsClick = {
+                        navController.navigate("settings")
+                    },
                     onHelpClick = onHelpClick
                 )
             }
@@ -85,8 +102,8 @@ fun NavGraph(
                         }
                     )
                 }
-            }
 
+            }
             // Rota para Favoritos
             composable(BottomBarScreen.Favoritos.route) {
                 FavoritosScreen(
@@ -119,8 +136,24 @@ fun NavGraph(
                 }
             }
 
+            //rota para as músicas
             composable(BottomBarScreen.Musicas.route) {
                 MusicasScreen(context = LocalContext.current)
+            }
+        // rota para as configurações
+            composable(route = "settings") {
+                SettingsScreen(
+                    isDarkModeEnabled = isDarkModeEnabled.value,
+                    onDarkModeToggle = {
+                        isDarkModeEnabled.value = !isDarkModeEnabled.value
+                    }
+                )
+            }
+// rota para a ajuda
+            composable(route = "help") {
+                HelpScreen(context = LocalContext.current,
+                    navController = navController
+                )
             }
 
         }

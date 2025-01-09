@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.aprovaai.ui.theme.BlueLight
 import com.example.aprovaai.R
 
+//splash ao abrir o app
 @Composable
 fun SplashScreen(modifier: Modifier = Modifier) {
     Box(
@@ -24,11 +25,6 @@ fun SplashScreen(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.img1_logo),
             contentDescription = "Imagem Logo"
         )
-//        Image(
-//            modifier = Modifier.align(Alignment.BottomCenter),
-//            painter = painterResource(id = R.drawable.bg_splash_screen),
-//            contentDescription = "Imagem de fundo"
-//        )
     }
 }
 

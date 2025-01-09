@@ -3,12 +3,9 @@ package com.example.aprovaai.ui.screens
 import android.content.Context
 import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -18,24 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.aprovaai.R
+import com.example.aprovaai.models.musicas
 
-
-data class Musica(
-    val id: Int,
-    val nome: String,
-    val soundRes: Int
-)
-
+//tela de músicas
 @Composable
 fun MusicasScreen(context: Context) {
-    val musicas = listOf(
-        Musica(1, "Papagaio", R.raw.papagaio_falando)
-    )
 
-    Column (
-        modifier = Modifier.fillMaxSize()
-    ){
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp) // Padding para a coluna
+    ) {
         Text(
             text = "Musicas",
             style = MaterialTheme.typography.headlineMedium,
@@ -43,20 +31,22 @@ fun MusicasScreen(context: Context) {
         )
 
         LazyColumn {
-            items(musicas.size){index ->
+            items(musicas.size) { index ->
                 val musica = musicas[index]
                 ListItem(
                     headlineContent = { Text(text = musica.nome) },
                     trailingContent = {
-                        Button(onClick = {playSound(context, musica.soundRes)}) {
+                        Button(onClick = { playSound(context, musica.soundRes) }) {
                             Text("Reproduzir")
                         }
-                    }
+                    },
+                    modifier = Modifier.padding(vertical = 8.dp) // Espaçamento entre itens
                 )
             }
         }
     }
 }
+
 
 fun playSound(context: Context, soundRes: Int) {
     try {
