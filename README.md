@@ -9,6 +9,17 @@
 <br>
 <br>
 
+<h3 align="center">
+Quer garantir vaga no seu curso dos sonhos e não sabe o que estudar?
+
+Com o Aprova Aí, seu facilitador nos estudos para o ENEM, você descobre todos os conteúdos reincidentes nas provas!
+
+</h3>
+
+<br>
+<br>
+<br>
+
 <h4 align="center">Universidade Federal do Ceará</h4>
 
 <h4 align="center">Projeto da disciplina de Desenvolvimento de Software para Dispositivos Móveis</h4>
