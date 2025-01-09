@@ -14,9 +14,8 @@ import androidx.navigation.NavController
 import com.example.aprovaai.models.EstudosConteudos
 import com.example.aprovaai.models.Dificuldade
 import com.example.aprovaai.models.Disciplina
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
+//tela de detalhes dos conteúdos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsConteudosScreen(conteudos: EstudosConteudos,
@@ -40,14 +39,13 @@ fun DetailsConteudosScreen(conteudos: EstudosConteudos,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        // Cabeçalho da tela
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
-            contentAlignment = Alignment.Center // Centraliza o conteúdo
+            contentAlignment = Alignment.Center
         ) {
             Text(
-                text = disciplina.name, // Esse texto pode ser dinâmico conforme a disciplina
+                text = disciplina.name,
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -62,7 +60,7 @@ fun DetailsConteudosScreen(conteudos: EstudosConteudos,
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = conteudos.name, // Também pode ser alterado conforme a seleção
+                text = conteudos.name,
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -123,21 +121,20 @@ fun DetailsConteudosScreen(conteudos: EstudosConteudos,
                 .height(120.dp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
             Button(onClick = {
-                Toast.makeText(context, "Conteúdo salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
 
                 navController.popBackStack()
             }) {
                 Text("Salvar")
             }
         }
+
     }
 }
 

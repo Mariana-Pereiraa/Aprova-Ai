@@ -10,8 +10,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.aprovaai.navigation.BottomBarScreen
 import com.example.aprovaai.ui.theme.BlueBase
-import com.example.aprovaai.ui.theme.BlueDark
-import com.example.aprovaai.ui.theme.BlueLight
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

@@ -1,5 +1,6 @@
 package com.example.aprovaai.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,13 +31,17 @@ import androidx.compose.ui.unit.dp
 import com.example.aprovaai.R
 import com.example.aprovaai.ui.theme.BlueBase
 
+// Barra de navegação superior com menu três pontinhos
 @ExperimentalMaterial3Api
 @Composable
 fun TopAppBarWithMenu(
     onSettingsClick: () -> Unit,
-    onHelpClick: () -> Unit
+    onHelpClick: () -> Unit,
+    onLogoutClick: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     TopAppBar(
         title = {
@@ -71,7 +77,8 @@ fun TopAppBarWithMenu(
                         text = { Text("Sair") },
                         onClick = {
                             expanded = false
-                            onHelpClick()
+                            Toast.makeText(context, "Desconectado com sucesso!", Toast.LENGTH_SHORT).show()
+                            onLogoutClick()
                         }
                     )
                 }
@@ -79,7 +86,7 @@ fun TopAppBarWithMenu(
                     painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                     contentDescription = "App Logo",
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(40.dp)
                         .padding(start = 8.dp, end = 8.dp)
                 )
                 Text(
@@ -105,6 +112,7 @@ fun TopAppBarWithMenu(
 private fun TopAppBarWithMenuPreview() {
     TopAppBarWithMenu(
         onSettingsClick = {  },
-        onHelpClick = {  }
+        onHelpClick = {  },
+        onLogoutClick = {  }
     )
 }

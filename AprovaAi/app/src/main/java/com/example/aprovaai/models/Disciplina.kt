@@ -2,6 +2,7 @@ package com.example.aprovaai.models
 import java.util.Date
 import com.example.aprovaai.R
 
+//disciplinas e conteudos mockados
 data class Disciplina(
     val id: Int,
     val name: String,
@@ -23,7 +24,7 @@ data class Disciplina(
                 checkEstudo = false,
                 resolucao = false,
                 isRevisar = false,
-                anotacoes = "Estudar Literatura"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 2,
@@ -33,7 +34,7 @@ data class Disciplina(
                 checkEstudo = false,
                 resolucao = false,
                 isRevisar = false,
-                anotacoes = "Estudar Movimento Barroco"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 3,
@@ -43,7 +44,7 @@ data class Disciplina(
                 checkEstudo = false,
                 resolucao = false,
                 isRevisar = false,
-                anotacoes = "Estudar Quinhentismo"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 4,
@@ -52,7 +53,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Movimento Modernista"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 5,
@@ -61,7 +62,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Movimento Naturalista"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 6,
@@ -70,7 +71,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Realismo"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 7,
@@ -79,7 +80,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Figuras de Linguagem"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 8,
@@ -88,7 +89,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Poesias Concretas"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 9,
@@ -97,7 +98,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Literatura Contemporânea"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 10,
@@ -106,7 +107,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Funções da Linguagem"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 11,
@@ -115,7 +116,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Gramática"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 12,
@@ -124,7 +125,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Semântica"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 13,
@@ -133,7 +134,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Compreensão e interpretação de texto"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 14,
@@ -151,7 +152,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Norma Coloquial"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 16,
@@ -160,7 +161,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Morfologia"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 17,
@@ -169,7 +170,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Linguística"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 18,
@@ -178,7 +179,7 @@ data class Disciplina(
                 dificuldade = Dificuldade.FÁCIL,
                 checkEstudo = false,
                 resolucao = false,
-                anotacoes = "Estudar Sintaxe"
+                anotacoes = ""
             ),
             EstudosConteudos(
                 id = 19,
