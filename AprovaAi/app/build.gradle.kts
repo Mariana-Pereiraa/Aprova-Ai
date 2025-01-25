@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.aprovaai"
-        minSdk = 35
+        minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -54,7 +54,10 @@ dependencies {
 // Notificações
     implementation ("androidx.core:core-ktx:1.10.1")
 
+    //data store
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -22,6 +22,12 @@ import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.BottomNavigationBar
 import com.example.aprovaai.ui.components.TopAppBarWithMenu
 import com.example.aprovaai.ui.screens.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.*
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.aprovaai.data.PreferencesManager
+import com.example.aprovaai.ui.viewmodel.ThemeViewModel
+import kotlinx.coroutines.launch
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
     object Home : BottomBarScreen(
@@ -50,7 +56,11 @@ fun NavGraph(
     onHelpClick: () -> Unit
 ) {
     val navController = rememberNavController()
-    val isDarkModeEnabled = remember { mutableStateOf(false) }
+    val themeViewModel: ThemeViewModel = viewModel()
+    val context = LocalContext.current
+    val isNotificationsEnabled by PreferencesManager.notificationsEnabledFlow(context).collectAsStateWithLifecycle(initialValue = false)
+    val isAnimationsEnabled = remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -131,31 +141,42 @@ fun NavGraph(
                         onConteudoSelected = {},
                         disciplina = disciplina,
                         navController = navController,
-                        context = LocalContext.current
+                        context = LocalContext.current,
+                        isNotificationsEnabled = isNotificationsEnabled
                     )
                 }
             }
 
-            //rota para as músicas
+            // Rota para as músicas
             composable(BottomBarScreen.Musicas.route) {
                 MusicasScreen(context = LocalContext.current)
             }
-        // rota para as configurações
+
+            // Rota para as configurações
             composable(route = "settings") {
+                val isDarkModeEnabled by themeViewModel.isDarkMode.collectAsState()
+
                 SettingsScreen(
-                    isDarkModeEnabled = isDarkModeEnabled.value,
-                    onDarkModeToggle = {
-                        isDarkModeEnabled.value = !isDarkModeEnabled.value
+                    themeViewModel = themeViewModel,
+                    isNotificationsEnabled = isNotificationsEnabled,
+                    onNotificationsToggle = { enabled ->
+                        coroutineScope.launch {
+                            PreferencesManager.setNotificationsEnabled(context, enabled)
+                        }
+                    },
+                    isAnimationsEnabled = isAnimationsEnabled.value,
+                    onAnimationsToggle = {
+                        isAnimationsEnabled.value = !isAnimationsEnabled.value
                     }
                 )
             }
-// rota para a ajuda
+
+            // Rota para a ajuda
             composable(route = "help") {
                 HelpScreen(context = LocalContext.current,
                     navController = navController
                 )
             }
-
         }
     }
 }
