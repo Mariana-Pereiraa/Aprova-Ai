@@ -15,13 +15,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.aprovaai.ui.theme.AprovaAiTheme
+import com.example.aprovaai.ui.viewmodel.ThemeViewModel
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.aprovaai.data.PreferencesManager
+import kotlinx.coroutines.launch
 
-//tela de configuraçãoes que vai ser acionada no menu tres pontinhos
+// Tela de configurações que vai ser acionada no menu três pontinhos
 @Composable
 fun SettingsScreen(
-    isDarkModeEnabled: Boolean,
-    onDarkModeToggle: (Boolean) -> Unit
+    themeViewModel: ThemeViewModel,
+    isNotificationsEnabled: Boolean,
+    onNotificationsToggle: (Boolean) -> Unit,
+    isAnimationsEnabled: Boolean,
+    onAnimationsToggle: (Boolean) -> Unit
 ) {
+
+    val isDarkModeEnabled by themeViewModel.isDarkMode.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    var notificationsEnabled by remember { mutableStateOf(isNotificationsEnabled) }
+
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = "Configurações",
@@ -42,23 +57,65 @@ fun SettingsScreen(
             )
             Switch(
                 checked = isDarkModeEnabled,
-                onCheckedChange = { onDarkModeToggle(it) }
+                onCheckedChange = { themeViewModel.toggleDarkMode(it) }
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Notificações",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.weight(1f)
+            )
+            Switch(
+                checked = notificationsEnabled,
+                onCheckedChange = { enabled ->
+                    notificationsEnabled = enabled
+                    coroutineScope.launch {
+                        PreferencesManager.setNotificationsEnabled(context, enabled)
+                    }
+                    onNotificationsToggle(enabled)
+                }
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Animações",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.weight(1f)
+            )
+            Switch(
+                checked = isAnimationsEnabled,
+                onCheckedChange = { onAnimationsToggle(it) }
             )
         }
     }
 }
 
-@Preview
-@Composable
-fun SettingsScreenPreview() {
-    val isDarkMode = remember { mutableStateOf(false) }
-
-    AprovaAiTheme(darkTheme = isDarkMode.value) {
-        Surface {
-            SettingsScreen(
-                isDarkModeEnabled = isDarkMode.value,
-                onDarkModeToggle = { isDarkMode.value = it }
-            )
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun SettingsScreenPreview() {
+//    val isDarkMode = remember { mutableStateOf(false) }
+//    val isNotifications = remember { mutableStateOf(true) }
+//    val isAnimations = remember { mutableStateOf(true) }
+//    AprovaAiTheme(darkTheme = isDarkMode.value) {
+//        Surface {
+//            SettingsScreen(
+//                themeViewModel = ThemeViewModel(),
+//                isNotificationsEnabled = isNotifications.value,
+//                onNotificationsToggle = { isNotifications.value = it },
+//                isAnimationsEnabled = isAnimations.value,
+//                onAnimationsToggle = { isAnimations.value = it }
+//            )
+//        }
+//    }
+//}
