@@ -18,18 +18,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
-//tela de ajuda que vai ser acionada no menu tres pontos
+// Tela de ajuda que vai ser acionada no menu três pontos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HelpScreen(
     context: Context,
     navController: NavController
 ) {
+    // Variável de estado para armazenar o valor da dúvida
+    val userQuery = remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -104,8 +109,8 @@ fun HelpScreen(
                 style = MaterialTheme.typography.bodyLarge
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = userQuery.value,
+                onValueChange = { userQuery.value = it },
                 label = { Text("Escreva aqui") },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -121,7 +126,6 @@ fun HelpScreen(
             ) {
                 Button(onClick = {
                     Toast.makeText(context, "Dúvida enviada!", Toast.LENGTH_SHORT).show()
-
                     navController.popBackStack()
                 }) {
                     Text("Enviar")
@@ -146,4 +150,3 @@ fun HelpSection(title: String, steps: List<String>) {
         )
     }
 }
-

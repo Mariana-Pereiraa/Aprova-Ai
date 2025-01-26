@@ -26,6 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aprovaai.data.PreferencesManager
+import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.ui.viewmodel.ThemeViewModel
 import kotlinx.coroutines.launch
 
@@ -62,14 +63,21 @@ fun NavGraph(
     val isAnimationsEnabled = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
+    val favoriteDisciplinas = remember { mutableStateListOf<Disciplina>() }
+
+
     Scaffold(
         topBar = {
             TopAppBarWithMenu(
                 onSettingsClick = {
-                    navController.navigate("settings")
+                    navController.navigate("settings"){
+                        popUpTo("home") { inclusive = true }
+                    }
                 },
                 onHelpClick = {
-                    navController.navigate("help")
+                    navController.navigate("help"){
+                        popUpTo("home") { inclusive = true}
+                    }
                 },
                 onLogoutClick = {}
             )

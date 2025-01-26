@@ -27,10 +27,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.aprovaai.models.Disciplina
 import androidx.compose.material3.*
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.sp
 import com.example.aprovaai.ui.theme.BlueBase
 import com.example.aprovaai.ui.theme.GrayDark
 import com.example.aprovaai.ui.theme.GrayLight
+import androidx.compose.runtime.*
+import kotlinx.coroutines.delay
 
 //mostra a lista com todas as disciplinas
 @Composable
@@ -39,6 +43,20 @@ fun DisciplinaListItem(
     onDisciplinaSelected: (Disciplina) -> Unit,
     onFavoriteToggle: (Disciplina) -> Unit
 ) {
+
+    var isLoading by remember { mutableStateOf(false) }
+    var triggerFavorite by remember { mutableStateOf(false) }
+
+    LaunchedEffect(triggerFavorite) {
+        if (triggerFavorite) {
+            isLoading = true
+            delay(500) // Simula tempo de carregamento
+            onFavoriteToggle(disciplina)
+            isLoading = false
+            triggerFavorite = false
+        }
+    }
+
     Card (
         modifier = Modifier
             .fillMaxWidth()
@@ -92,9 +110,15 @@ fun DisciplinaListItem(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     IconButton(
-                        onClick = { onFavoriteToggle(disciplina) },
+                        onClick = {
+                            triggerFavorite = true
+                        },
                         modifier = Modifier.size(48.dp)
-                    ) {
+                    ) { if(isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp))
+                    }
+                    else{
                         Icon(
                             imageVector = if (disciplina.isFavorite) Icons.Default.Favorite
                             else Icons.Default.FavoriteBorder,
@@ -108,4 +132,5 @@ fun DisciplinaListItem(
             }
         }
     }
+}
 }

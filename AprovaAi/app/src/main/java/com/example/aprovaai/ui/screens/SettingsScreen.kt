@@ -82,22 +82,6 @@ fun SettingsScreen(
                 }
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Animações",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f)
-            )
-            Switch(
-                checked = isAnimationsEnabled,
-                onCheckedChange = { onAnimationsToggle(it) }
-            )
-        }
     }
 }
 
