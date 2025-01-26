@@ -45,7 +45,8 @@ fun HomeScreen(
         disciplinasList.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
 
-    val recentsSearches = remember { mutableStateListOf<Disciplina>() }
+    // Acessando a lista de pesquisas recentes do ViewModel
+    val recentsSearches = viewModel.recentsSearches
 
     Column(
         modifier = Modifier.padding(8.dp)
@@ -65,14 +66,15 @@ fun HomeScreen(
                 containerColor = GrayLight,
                 disabledIndicatorColor = BlueBase,
                 focusedIndicatorColor = BlueBase,
-                focusedLabelColor = GrayDark
+                focusedLabelColor = GrayDark,
+                focusedTextColor = GrayDark,
             ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
         )
 
-        // Buscas recentes
+        // Exibindo as buscas recentes
         LazyRow(
             modifier = Modifier.padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -93,6 +95,7 @@ fun HomeScreen(
                 DisciplinaListItem(
                     disciplina = disciplina,
                     onDisciplinaSelected = { selectedDisciplina ->
+                        // Adicionando à lista de buscas recentes se ainda não estiver lá
                         if (!recentsSearches.contains(selectedDisciplina)) {
                             recentsSearches.add(0, selectedDisciplina)
                         }
@@ -106,6 +109,7 @@ fun HomeScreen(
         }
     }
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
