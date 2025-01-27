@@ -41,8 +41,8 @@ fun SettingsScreen(
         Text(
             text = "Configurações",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+            modifier = Modifier.padding(bottom = 16.dp),
+            color = MaterialTheme.colorScheme.onBackground)
 
         Row(
             modifier = Modifier
@@ -53,7 +53,8 @@ fun SettingsScreen(
             Text(
                 text = "Modo Escuro",
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                color = MaterialTheme.colorScheme.onBackground
             )
             Switch(
                 checked = isDarkModeEnabled,
@@ -69,7 +70,8 @@ fun SettingsScreen(
             Text(
                 text = "Notificações",
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                color = MaterialTheme.colorScheme.onBackground
             )
             Switch(
                 checked = notificationsEnabled,
@@ -85,21 +87,3 @@ fun SettingsScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun SettingsScreenPreview() {
-//    val isDarkMode = remember { mutableStateOf(false) }
-//    val isNotifications = remember { mutableStateOf(true) }
-//    val isAnimations = remember { mutableStateOf(true) }
-//    AprovaAiTheme(darkTheme = isDarkMode.value) {
-//        Surface {
-//            SettingsScreen(
-//                themeViewModel = ThemeViewModel(),
-//                isNotificationsEnabled = isNotifications.value,
-//                onNotificationsToggle = { isNotifications.value = it },
-//                isAnimationsEnabled = isAnimations.value,
-//                onAnimationsToggle = { isAnimations.value = it }
-//            )
-//        }
-//    }
-//}
