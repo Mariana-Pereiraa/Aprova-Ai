@@ -7,47 +7,54 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.prefs.Preferences
-
 
 private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 
 object PreferencesManager {
     private val NOTIFICATIONS_KEY = booleanPreferencesKey("notifications_enabled")
     private val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
+    private val ANIMATIONS_KEY = booleanPreferencesKey("animations_enabled") // Adicionando a chave
 
-    // Obtém a instância única do DataStore
     private fun getDataStore(context: Context): DataStore<androidx.datastore.preferences.core.Preferences> {
         return context.dataStore
     }
 
-    // Fluxo para observar se as notificações estão ativadas
+    // Notificações
     fun notificationsEnabledFlow(context: Context): Flow<Boolean> {
-        return getDataStore(context).data
-            .map { preferences ->
-                preferences[NOTIFICATIONS_KEY] ?: false // Falso por padrão
-            }
+        return getDataStore(context).data.map { preferences ->
+            preferences[NOTIFICATIONS_KEY] ?: false
+        }
     }
 
-    // Atualiza o estado das notificações no DataStore
     suspend fun setNotificationsEnabled(context: Context, enabled: Boolean) {
         getDataStore(context).edit { preferences ->
             preferences[NOTIFICATIONS_KEY] = enabled
         }
     }
 
-    // Obtém o estado do modo escuro armazenado
+    // Modo escuro
     fun darkModeFlow(context: Context): Flow<Boolean> {
-        return getDataStore(context).data
-            .map { preferences ->
-                preferences[DARK_MODE_KEY] ?: false // Falso por padrão
-            }
+        return getDataStore(context).data.map { preferences ->
+            preferences[DARK_MODE_KEY] ?: false
+        }
     }
 
-    // Atualiza o estado do modo escuro no DataStore
     suspend fun setDarkMode(context: Context, enabled: Boolean) {
         getDataStore(context).edit { preferences ->
             preferences[DARK_MODE_KEY] = enabled
+        }
+    }
+
+    // **Animações**
+    fun animationsEnabledFlow(context: Context): Flow<Boolean> {
+        return getDataStore(context).data.map { preferences ->
+            preferences[ANIMATIONS_KEY] ?: true // Ativado por padrão
+        }
+    }
+
+    suspend fun setAnimationsEnabled(context: Context, enabled: Boolean) {
+        getDataStore(context).edit { preferences ->
+            preferences[ANIMATIONS_KEY] = enabled
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.aprovaai.navigation
 
+import DetailsConteudosScreen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -29,6 +30,9 @@ import com.example.aprovaai.data.PreferencesManager
 import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.ui.viewmodel.ThemeViewModel
 import kotlinx.coroutines.launch
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import androidx.compose.animation.*
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
     object Home : BottomBarScreen(
@@ -50,7 +54,8 @@ sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class,
+ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     onSettingsClick: () -> Unit,
@@ -63,22 +68,19 @@ fun NavGraph(
     val isAnimationsEnabled = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    val favoriteDisciplinas = remember { mutableStateListOf<Disciplina>() }
-
-
     Scaffold(
         topBar = {
             TopAppBarWithMenu(
                 onSettingsClick = {
-                    navController.navigate("settings"){
+                    navController.navigate("settings") {
                         popUpTo("home") { inclusive = true }
                     }
                 },
                 onHelpClick = {
-                    navController.navigate("help"){
-                        popUpTo("home") { inclusive = true}
+                    navController.navigate("help") {
+                        popUpTo("home") { inclusive = true }
                     }
-                },
+              },
                 onLogoutClick = {}
             )
         },
@@ -86,25 +88,28 @@ fun NavGraph(
             BottomNavigationBar(navController = navController)
         }
     ) { innerPadding ->
-        NavHost(
+        AnimatedNavHost(
             navController = navController,
             startDestination = BottomBarScreen.Home.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            enterTransition = { slideInHorizontally(initialOffsetX = { it }) + fadeIn() },
+            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) + fadeOut() },
+            popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }) + fadeIn() },
+            popExitTransition = { slideOutHorizontally(targetOffsetX = { it }) + fadeOut() }
         ) {
-            // Rota para a Home
             composable(BottomBarScreen.Home.route) {
                 HomeScreen(
                     onDisciplinaSelected = { disciplina ->
-                        navController.navigate("conteudos/${disciplina.name}")
+                        navController.navigate("conteudos/${disciplina.name}"){
+                            popUpTo("home") { inclusive = true }
+                        }
                     },
-                    onSettingsClick = {
-                        navController.navigate("settings")
-                    },
+                    onSettingsClick = { navController.navigate("settings") },
                     onHelpClick = onHelpClick
                 )
             }
 
-            // Rota para Conteúdos de uma Disciplina
+            //rota para conteudos
             composable(
                 route = "conteudos/{disciplinaName}",
                 arguments = listOf(navArgument("disciplinaName") { type = NavType.StringType })
@@ -116,17 +121,20 @@ fun NavGraph(
                     ConteudosScreen(
                         conteudos = it.conteudos,
                         onConteudoSelected = { conteudo ->
-                            navController.navigate("detailsConteudo/${conteudo.name}")
+                            navController.navigate("detailsConteudo/${conteudo.name}") {
+                                popUpTo("home") { inclusive = true }
+                            }
                         }
                     )
                 }
-
             }
-            // Rota para Favoritos
+
+
+            //rota para favoritos
             composable(BottomBarScreen.Favoritos.route) {
                 FavoritosScreen(
                     onDisciplinaSelected = { disciplina ->
-                        navController.navigate("details/${disciplina.name}")
+                        navController.navigate("details/${disciplina.name}"){}
                     },
                     onFavoriteToggle = { disciplina ->
                         disciplina.isFavorite = !disciplina.isFavorite
@@ -155,15 +163,12 @@ fun NavGraph(
                 }
             }
 
-            // Rota para as músicas
             composable(BottomBarScreen.Musicas.route) {
                 MusicasScreen(context = LocalContext.current)
             }
 
-            // Rota para as configurações
-            composable(route = "settings") {
+            composable("settings") {
                 val isDarkModeEnabled by themeViewModel.isDarkMode.collectAsState()
-
                 SettingsScreen(
                     themeViewModel = themeViewModel,
                     isNotificationsEnabled = isNotificationsEnabled,
@@ -179,15 +184,15 @@ fun NavGraph(
                 )
             }
 
-            // Rota para a ajuda
-            composable(route = "help") {
+            //rota para tela de ajuda
+            composable("help") {
                 HelpScreen(context = LocalContext.current,
-                    navController = navController
-                )
+                    navController = navController)
             }
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview

@@ -50,7 +50,7 @@ fun DisciplinaListItem(
     LaunchedEffect(triggerFavorite) {
         if (triggerFavorite) {
             isLoading = true
-            delay(500) // Simula tempo de carregamento
+            delay(500)
             onFavoriteToggle(disciplina)
             isLoading = false
             triggerFavorite = false

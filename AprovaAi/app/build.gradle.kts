@@ -54,6 +54,9 @@ dependencies {
 // Notificações
     implementation ("androidx.core:core-ktx:1.10.1")
 
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.32.0")
+
+
     //data store
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
