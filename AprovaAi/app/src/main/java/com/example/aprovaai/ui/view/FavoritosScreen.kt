@@ -1,7 +1,5 @@
-package com.example.aprovaai.ui.screens
+package com.example.aprovaai.ui.view
 
-import android.R
-import android.R.attr.id
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -17,7 +15,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.round
 import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.DisciplinaListItem

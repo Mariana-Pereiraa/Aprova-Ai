@@ -1,4 +1,4 @@
-package com.example.aprovaai.ui.screens
+package com.example.aprovaai.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

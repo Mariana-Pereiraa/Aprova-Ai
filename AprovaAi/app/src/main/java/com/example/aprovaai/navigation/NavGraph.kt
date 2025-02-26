@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.MoreVert // Adicionei o ícone de três pontinhos
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -15,24 +16,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.BottomNavigationBar
 import com.example.aprovaai.ui.components.TopAppBarWithMenu
-import com.example.aprovaai.ui.screens.*
+import com.example.aprovaai.ui.view.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.aprovaai.data.PreferencesManager
-import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.ui.viewmodel.ThemeViewModel
 import kotlinx.coroutines.launch
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import androidx.compose.animation.*
+import com.example.aprovaai.ui.viewmodel.AuthViewModel
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.aprovaai.ui.viewmodel.EstudosConteudosViewModel
 
 sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit, val label: String) {
     object Home : BottomBarScreen(
@@ -54,12 +60,13 @@ sealed class BottomBarScreen(val route: String, val icon: @Composable () -> Unit
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class,
-ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     onSettingsClick: () -> Unit,
-    onHelpClick: () -> Unit
+    onHelpClick: () -> Unit,
+    viewModel: AuthViewModel,
+    estudosConteudosViewModel: EstudosConteudosViewModel
 ) {
     val navController = rememberNavController()
     val themeViewModel: ThemeViewModel = viewModel()
@@ -67,40 +74,55 @@ fun NavGraph(
     val isNotificationsEnabled by PreferencesManager.notificationsEnabledFlow(context).collectAsStateWithLifecycle(initialValue = false)
     val isAnimationsEnabled = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
 
     Scaffold(
         topBar = {
-            TopAppBarWithMenu(
-                onSettingsClick = {
-                    navController.navigate("settings") {
-                        popUpTo("home") { inclusive = true }
+            if (currentRoute != "login") {
+                TopAppBarWithMenu(
+                    onSettingsClick = {
+                        navController.navigate("settings") {
+                            popUpTo("home") { inclusive = true }
+                        }
+                    },
+                    onHelpClick = {
+                        navController.navigate("help") {
+                            popUpTo("home") { inclusive = true }
+                        }
+                    },
+                    onLogoutClick = {
+                        viewModel.logout()
+                        navController.navigate("login") {
+                            popUpTo("home") { inclusive = true }
+                        }
                     }
-                },
-                onHelpClick = {
-                    navController.navigate("help") {
-                        popUpTo("home") { inclusive = true }
-                    }
-              },
-                onLogoutClick = {}
-            )
+                )
+            }
         },
         bottomBar = {
-            BottomNavigationBar(navController = navController)
+            if (currentRoute != "login") {
+                BottomNavigationBar(navController = navController)
+            }
         }
     ) { innerPadding ->
         AnimatedNavHost(
             navController = navController,
-            startDestination = BottomBarScreen.Home.route,
+            startDestination = "login", // Defina a tela de login como a primeira tela
             modifier = Modifier.padding(innerPadding),
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) + fadeIn() },
             exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) + fadeOut() },
             popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }) + fadeIn() },
             popExitTransition = { slideOutHorizontally(targetOffsetX = { it }) + fadeOut() }
         ) {
+            composable("login") {
+                LoginScreen(viewModel = viewModel, navController = navController)
+            }
+
             composable(BottomBarScreen.Home.route) {
                 HomeScreen(
                     onDisciplinaSelected = { disciplina ->
-                        navController.navigate("conteudos/${disciplina.name}"){
+                        navController.navigate("conteudos/${disciplina.name}") {
                             popUpTo("home") { inclusive = true }
                         }
                     },
@@ -109,7 +131,7 @@ fun NavGraph(
                 )
             }
 
-            //rota para conteudos
+            // Rota para conteúdos
             composable(
                 route = "conteudos/{disciplinaName}",
                 arguments = listOf(navArgument("disciplinaName") { type = NavType.StringType })
@@ -129,12 +151,11 @@ fun NavGraph(
                 }
             }
 
-
-            //rota para favoritos
+            // Rota para favoritos
             composable(BottomBarScreen.Favoritos.route) {
                 FavoritosScreen(
                     onDisciplinaSelected = { disciplina ->
-                        navController.navigate("details/${disciplina.name}"){}
+                        navController.navigate("details/${disciplina.name}") {}
                     },
                     onFavoriteToggle = { disciplina ->
                         disciplina.isFavorite = !disciplina.isFavorite
@@ -158,7 +179,8 @@ fun NavGraph(
                         disciplina = disciplina,
                         navController = navController,
                         context = LocalContext.current,
-                        isNotificationsEnabled = isNotificationsEnabled
+                        isNotificationsEnabled = isNotificationsEnabled,
+                        viewModel = estudosConteudosViewModel
                     )
                 }
             }
@@ -184,22 +206,75 @@ fun NavGraph(
                 )
             }
 
-            //rota para tela de ajuda
+            // Rota para tela de ajuda
             composable("help") {
-                HelpScreen(context = LocalContext.current,
-                    navController = navController)
+                HelpScreen(context = LocalContext.current, navController = navController)
             }
+
+            composable("register") {
+                RegisterScreen(viewModel = viewModel, navController = navController)
+            }
+
+            composable("forgotPassword") {
+                ForgotPasswordScreen(viewModel = viewModel, navController = navController)
+            }
+
         }
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
-private fun NavGraphPreview() {
-    NavGraph(
-        onSettingsClick = {},
-        onHelpClick = {}
+fun TopAppBarWithMenu(
+    onSettingsClick: () -> Unit,
+    onHelpClick: () -> Unit,
+    onLogoutClick: () -> Unit
+) {
+    var showMenu by remember { mutableStateOf(false) } // Controla a visibilidade do menu
+
+    androidx.compose.material3.TopAppBar(
+        title = { Text("AprovaAi") }, // Título da TopAppBar
+        actions = {
+            // Ícone de três pontinhos (menu)
+            IconButton(onClick = { showMenu = !showMenu }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "Mais opções"
+                )
+            }
+
+            // Menu suspenso
+            DropdownMenu(
+                expanded = showMenu,
+                onDismissRequest = { showMenu = false }
+            ) {
+                // Item de Configurações
+                DropdownMenuItem(
+                    text = { Text("Configurações") },
+                    onClick = {
+                        onSettingsClick()
+                        showMenu = false
+                    }
+                )
+
+                // Item de Ajuda
+                DropdownMenuItem(
+                    text = { Text("Ajuda") },
+                    onClick = {
+                        onHelpClick()
+                        showMenu = false
+                    }
+                )
+
+                // Item de Logout
+                DropdownMenuItem(
+                    text = { Text("Sair") },
+                    onClick = {
+                        onLogoutClick()
+                        showMenu = false
+                    }
+                )
+            }
+        }
     )
 }
