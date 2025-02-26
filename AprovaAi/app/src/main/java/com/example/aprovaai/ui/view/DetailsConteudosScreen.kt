@@ -20,7 +20,10 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.util.Log
 import com.example.aprovaai.notifications.StudyReminderReceiver
+import com.example.aprovaai.ui.viewmodel.EstudosConteudosViewModel
+//import com.example.aprovaai.ui.viewmodel.EstudosConteudosViewModel
 import java.util.*
+//import com.example.aprovaai.ui.v
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,8 +33,9 @@ fun DetailsConteudosScreen(
     disciplina: Disciplina,
     context: Context,
     navController: NavController,
-    isNotificationsEnabled: Boolean
-) {
+    isNotificationsEnabled: Boolean,
+    viewModel: EstudosConteudosViewModel
+    ) {
     // Estados para gerenciar as interações
     var dataEstudo by remember { mutableStateOf("") }
     var dificuldadeSelecionada by remember { mutableStateOf(conteudos.dificuldade.name) }
@@ -210,8 +214,17 @@ fun DetailsConteudosScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Button(onClick = {
+                    viewModel.salvarConteudo(
+                        conteudos,
+                        dataEstudo,
+                        dificuldadeSelecionada,
+                        selectedHour,
+                        selectedMinute
+                    )
+
                     Toast.makeText(context, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
                     navController.popBackStack()
+
                 }) {
                     Text("Salvar")
                 }

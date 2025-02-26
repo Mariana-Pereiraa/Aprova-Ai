@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "508359434888",
+    "project_id": "aprovaai-eec33",
+    "storage_bucket": "aprovaai-eec33.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508359434888:android:822f1557617e47a40b753d",
+        "android_client_info": {
+          "package_name": "com.example.aprovaai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508359434888-7gqd0j1bv64ajadipouncv8rjefcj282.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aprovaai",
+            "certificate_hash": "86779d93c54514c226a69ad1e4deafb32327e1b8"
+          }
+        },
+        {
+          "client_id": "508359434888-d0e9i67mt8d9gjsng4jsa23mjv9d8n1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSCaKDE_ZqkOvo3kFnjNZ_gEek3ycCXik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508359434888-d0e9i67mt8d9gjsng4jsa23mjv9d8n1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

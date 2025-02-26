@@ -1,4 +1,4 @@
-package com.example.aprovaai.ui.screens
+package com.example.aprovaai.ui.view
 
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.mutableStateListOf

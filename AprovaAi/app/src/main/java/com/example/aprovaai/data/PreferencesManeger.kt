@@ -57,4 +57,6 @@ object PreferencesManager {
             preferences[ANIMATIONS_KEY] = enabled
         }
     }
+
+
 }

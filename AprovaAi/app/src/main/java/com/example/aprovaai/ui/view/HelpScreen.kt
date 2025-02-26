@@ -1,4 +1,4 @@
-package com.example.aprovaai.ui.screens
+package com.example.aprovaai.ui.view
 
 import android.content.Context
 import android.widget.Toast

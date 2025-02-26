@@ -1,4 +1,4 @@
-package com.example.aprovaai.ui.screens
+package com.example.aprovaai.ui.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
