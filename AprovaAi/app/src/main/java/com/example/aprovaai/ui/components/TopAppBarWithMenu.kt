@@ -49,39 +49,6 @@ fun TopAppBarWithMenu(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = 8.dp)
             ) {
-                IconButton(onClick = { expanded = true }) {
-                    Icon(
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = "Menu"
-                    )
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("Configurações") },
-                        onClick = {
-                            expanded = false
-                            onSettingsClick()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Ajuda") },
-                        onClick = {
-                            expanded = false
-                            onHelpClick()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Sair") },
-                        onClick = {
-                            expanded = false
-                            Toast.makeText(context, "Desconectado com sucesso!", Toast.LENGTH_SHORT).show()
-                            onLogoutClick()
-                        }
-                    )
-                }
                 Image(
                     painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                     contentDescription = "App Logo",
@@ -97,12 +64,48 @@ fun TopAppBarWithMenu(
                 )
             }
         },
+        actions = { // Coloca o menu no lado direito
+            IconButton(onClick = { expanded = true }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "Menu"
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("Configurações") },
+                    onClick = {
+                        expanded = false
+                        onSettingsClick()
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Ajuda") },
+                    onClick = {
+                        expanded = false
+                        onHelpClick()
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Sair") },
+                    onClick = {
+                        expanded = false
+                        Toast.makeText(context, "Desconectado com sucesso!", Toast.LENGTH_SHORT).show()
+                        onLogoutClick()
+                    }
+                )
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = BlueBase,
             titleContentColor = MaterialTheme.colorScheme.onPrimary,
             actionIconContentColor = MaterialTheme.colorScheme.onPrimary
         )
     )
+
 }
 
 
