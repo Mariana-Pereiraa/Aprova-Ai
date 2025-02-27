@@ -79,7 +79,8 @@ fun NavGraph(
 
     Scaffold(
         topBar = {
-            if (currentRoute != "login") {
+            //mudar aqui pra não aparecer o top
+            if (currentRoute != "login" && currentRoute != "register" && currentRoute != "forgotPassword") {
                 TopAppBarWithMenu(
                     onSettingsClick = {
                         navController.navigate("settings") {
@@ -100,8 +101,9 @@ fun NavGraph(
                 )
             }
         },
+        //mudar aqui pra não aparecer o bottom
         bottomBar = {
-            if (currentRoute != "login") {
+            if (currentRoute != "login" && currentRoute != "register" && currentRoute != "forgotPassword") {
                 BottomNavigationBar(navController = navController)
             }
         }
