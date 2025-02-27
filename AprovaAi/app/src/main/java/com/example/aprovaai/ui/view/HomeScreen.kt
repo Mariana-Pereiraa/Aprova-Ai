@@ -15,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.aprovaai.models.Disciplina
 import com.example.aprovaai.models.disciplinasList
 import com.example.aprovaai.ui.components.DisciplinaListItem
-import com.example.aprovaai.ui.theme.BlueBase
-import com.example.aprovaai.ui.theme.GrayDark
-import com.example.aprovaai.ui.theme.GrayLight
+import com.example.aprovaai.data.FirebaseRepository
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,6 +40,8 @@ fun HomeScreen(
         isLoading = false
     }
 
+    val firebaseRepository = FirebaseRepository()
+
     Column(modifier = Modifier.padding(8.dp)) {
         // Campo de pesquisa
         TextField(
@@ -54,13 +54,6 @@ fun HomeScreen(
                     contentDescription = "Pesquisar"
                 )
             },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = GrayLight,
-                disabledIndicatorColor = BlueBase,
-                focusedIndicatorColor = BlueBase,
-                focusedLabelColor = GrayDark,
-                focusedTextColor = GrayDark,
-            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -96,13 +89,14 @@ fun HomeScreen(
                     DisciplinaListItem(
                         disciplina = disciplina,
                         onDisciplinaSelected = { selectedDisciplina ->
-                            if (!recentsSearches.contains(selectedDisciplina)) {
-                                recentsSearches.add(0, selectedDisciplina)
-                            }
                             onDisciplinaSelected(selectedDisciplina)
                         },
                         onFavoriteToggle = { favoriteDisciplina ->
                             favoriteDisciplina.isFavorite = !favoriteDisciplina.isFavorite
+
+                            // Atualiza no Firebase
+                            val userId = "UID_DO_USUARIO" // Substitua pela lógica de obter o UID do usuário logado
+                            firebaseRepository.atualizarFavoritos(userId, favoriteDisciplina)
                         }
                     )
                 }
