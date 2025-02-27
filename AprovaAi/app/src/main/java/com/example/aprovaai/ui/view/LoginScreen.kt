@@ -163,25 +163,25 @@ fun LoginScreen(viewModel: AuthViewModel, navController: NavController) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    onClick = {
-                        val githubIntent = viewModel.getGitHubSignInIntent()
-                        githubSignInLauncher.launch(githubIntent)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.github),
-                        contentDescription = "GitHub Login",
-                        modifier = Modifier.size(24.dp)
-                    )
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Text("Entrar com GitHub", fontSize = 18.sp)
-                }
+//                Button(
+//                    onClick = {
+//                        val githubIntent = viewModel.getGitHubSignInIntent()
+//                        githubSignInLauncher.launch(githubIntent)
+//                    },
+//                    modifier = Modifier.fillMaxWidth(),
+//                    shape = RoundedCornerShape(8.dp),
+//                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+//                ) {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.github),
+//                        contentDescription = "GitHub Login",
+//                        modifier = Modifier.size(24.dp)
+//                    )
+//
+//                    Spacer(modifier = Modifier.width(8.dp))
+//
+//                    Text("Entrar com GitHub", fontSize = 18.sp)
+//                }
 
                 TextButton(onClick = { navController.navigate("register") }) {
                     Text("Criar Conta")
